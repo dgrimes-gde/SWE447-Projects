@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+        var cone = null; 
 <script src="../Common/initShaders.js"></script>
 <script src="../Common/Cone.js"></script>
 <script src="cone.js"></script> 
@@ -11,6 +12,7 @@
 void main() 
 {  
   gl_Position = vPosition;
+  
 }
 </script>
   <script id="Cone-fragment-shader"
@@ -28,6 +30,7 @@ void main()
 </script>
 </head>
 <body>
+        cone = new Cone( n ); 
   <cone id="Cone-vertex-shader" width="512" height="512" style="background-color: #00FF7F"></cone>
 </body>
 </html>
