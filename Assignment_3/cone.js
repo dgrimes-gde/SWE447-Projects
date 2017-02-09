@@ -1,23 +1,23 @@
 var cone = null;
+var gl = null;
 
 function init() {
-    var cone = document.getElementById( "Cone-vertex-shader" );
-    cone = new Cone( n ); 
-
-     Cone = WebGLUtils.setupWebGL( cone );
-
+    var canvas = document.getElementById( "webgl-canvas" ); 
+    gl = WebGLUtils.setupWebGL( cone );
+    
     if ( !Cone ) {
         alert("Unable to setup WebGL");
         return;
     }
 
-    Cone.clearColor( 1.0, 0.0, 0.0, 1.0 );
-
+    gl.clearColor( 1.0, 0.0, 0.0, 1.0 );
+    
+       cone = new Cone(gl, 50);
     render();
 }
 
 function render() {
+    gl.clear(gl.COLOR_BUFFER_BIT);
    cone.render();
 }
-
 window.onload = init;
