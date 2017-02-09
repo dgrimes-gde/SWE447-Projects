@@ -3,9 +3,9 @@ var gl = null;
 
 function init() {
     var canvas = document.getElementById( "webgl-canvas" ); 
-    gl = WebGLUtils.setupWebGL( cone );
+    gl = WebGLUtils.setupWebGL( canvas );
     
-    if ( !Cone ) {
+    if ( !gl ) {
         alert("Unable to setup WebGL");
         return;
     }
