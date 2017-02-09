@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-        var cone = null; 
+        
+<script src="../Common/webgl-utils.html"></script>
 <script src="../Common/initShaders.js"></script>
 <script src="../Common/Cone.js"></script>
 <script src="cone.js"></script> 
+        
 <script id="Cone-vertex-shader"
         type="x-shader/x-vertex">
- attribute vec4 vPosition;
- 
+attribute vec4 vPosition;
 void main() 
 {  
+  gl_PointSize - 5.0;
   gl_Position = vPosition;
-  
 }
 </script>
-  <script id="Cone-fragment-shader"
-        type="x-shader/x-vertex">
-   precision highp float; 
-   
-   varying vec4 fColor; 
         
+  <script id="Cone-fragment-shader" type="x-shader/x-vertex">
+   precision highp float;       
 void main()
 {
     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
@@ -31,6 +29,6 @@ void main()
 </head>
 <body>
         cone = new Cone( n ); 
-  <cone id="Cone-vertex-shader" width="512" height="512" style="background-color: #00FF7F"></cone>
+  <cone id="webgl-canvas" width="512" height="512" style="background-color: #00FF7F"></cone>
 </body>
 </html>
