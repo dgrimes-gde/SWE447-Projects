@@ -18,9 +18,9 @@ var gl;
 
 var Planets = {
   Sun : undefined,
-  //Mercury : undefined,
+  Mercury : undefined,
   // Venus : undefined,
-   Earth : undefined,
+  //Earth : undefined,
   // Moon : undefined,
   // Mars : undefined,
   // Jupiter : undefined,
@@ -70,7 +70,7 @@ function init() {
     // assign that same value to the local variable "p", for later use.
 
     var planet = Planets[name] = new Sphere();
-    var planet = Planets[name] = new Sphere();
+   
 
     // For each planet, we'll add a new property (which itself is a 
     // dictionary) that contains the uniforms that we will use in
@@ -122,11 +122,6 @@ function render() {
   planet = Planets[name];
   data = SolarSystem[name];
   
-  name = "Earth";
-  planet = Planets[name];
-  data = SolarSystem[name];
-
-  
   
   // Set PointMode to true to render all the vertices as points, as
   // compared to filled triangles.  This can be useful if you think
@@ -165,10 +160,26 @@ function render() {
   window.requestAnimationFrame(render);
 }
 
-//---------------------------------------------------------------------------
+//Mercry/---------------------------------------------------------------------------
 //
 //  resize() - handle resize events
 //
+ name = "Mercury";
+  planet = Planets[name];
+  data = SolarSystem[name];
+  
+  planet.PointMode = false;
+  
+  ms.push();
+  ms.rotate(time/data.year, rotAxis);
+  ms.translate(data.distance*10, 0, 0);
+  ms.scale(data.radius);
+  gl.useProgram(planet.program);
+  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+  planet.render();
+  ms.pop();
 
 function resize() {
   var w = canvas.clientWidth;
