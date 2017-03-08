@@ -20,7 +20,7 @@ var Planets = {
   Sun : undefined,
   //Mercury : undefined,
   // Venus : undefined,
-  // Earth : undefined,
+   Earth : undefined,
   // Moon : undefined,
   // Mars : undefined,
   // Jupiter : undefined,
@@ -122,6 +122,9 @@ function render() {
   planet = Planets[name];
   data = SolarSystem[name];
   
+  name = "Earth";
+  planet = Planets[name];
+  data = SolarSystem[name];
 
   
   
@@ -138,14 +141,22 @@ function render() {
   // here, we're only rendering the Sun, which is the center of the Solar
   // system (and hence, has no translation to its location).
 
-  ms.push();
-  ms.scale(data.radius);
-  gl.useProgram(planet.program);
-  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
-  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
-  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
-  planet.render();
-  ms.pop();
+ ms.push();
+ ms.scale(data.radius);
+ gl.useProgram(planet.program);
+ gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+ gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+ gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+ planet.render();
+ ms.pop();
+  
+ ms.push();
+ ms.rotate(year, axis);
+ ms.translate(distance, 0, 0);
+ ms.rotate(day, axis);
+ ms.scale(Earth.radius);
+ Earth.draw();
+ ms.pop(); 
   
   //
   //  Add your code for more planets here!
