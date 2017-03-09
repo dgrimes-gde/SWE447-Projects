@@ -18,11 +18,11 @@ var gl;
 
 var Planets = {
   Sun : undefined,
-  // Mercury : undefined,
+   Mercury : undefined,
   // Venus : undefined,
-  // Earth : undefined,
-  // Moon : undefined,
-  // Mars : undefined,
+   Earth : undefined,
+   Moon : undefined,
+   Mars : undefined,
   // Jupiter : undefined,
   // Saturn : undefined,
   // Uranus : undefined,
@@ -108,8 +108,7 @@ function render() {
 
   // Create a few temporary variables to make it simpler to work with
   // the various properties we'll use to render the planets.  The Planets
-  // dictionary (created in init()) can be indexed by each planet's name.
-  // We'll use the temporary variables "planet" to reference the geometric
+  // dictionary (created in init()) can be indexed by each planet's name.  // We'll use the temporary variables "planet" to reference the geometric
   // information (e.g., sphere model) we created in the Planets array.
   // Likewise, we'll use "data" to reference the database of information
   // about the planets in SolarSystem.  Look at how these are
@@ -119,8 +118,7 @@ function render() {
 
   name = "Sun";
   planet = Planets[name];
-  data = SolarSystem[name];
-  
+  data = SolarSystem[name];  
   // Set PointMode to true to render all the vertices as points, as
   // compared to filled triangles.  This can be useful if you think
   // your planet might be inside another planet or the Sun.  Since the
@@ -146,6 +144,81 @@ function render() {
   //
   //  Add your code for more planets here!
   //
+  
+  name = "Mercury";
+  planet = Planets[name];
+  data = SolarSystem[name];
+  
+  
+   planet.PointMode = false;
+
+  // Use the matrix stack to configure and render a planet.  How you rener  // each planet will be similar, but not exactly the same.  In particular,
+  // here, we're only rendering the Sun, which is the center of the Solar
+ // system (and hence, has no translation to its location).
+
+  ms.push();
+  ms.rotate(data.year*time, [0,0,1]);
+  ms.tranlate(data.distance*10,0,0);
+  ms.scale(data.radius);
+  gl.useProgram(planet.program);
+  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+  planet.render();
+  ms.pop();
+  
+  name = "Earth ";
+  planet = Planets[name];
+  data = SolarSystem[name];
+  
+  
+   planet.PointMode = false;
+
+  // Use the matrix stack to configure and render a planet.  How you rener
+  // each planet will be similar, but not exactly the same.  In particular,
+  // here, we're only rendering the Sun, which is the center of the Solar
+  // system (and hence, has no translation to its location).
+
+  ms.push();
+  ms.rotate(data.year*time, [0,0,1]);
+  ms.tanslate(data.distance*1000,0,0);
+  ms.push();
+  ms.scale(data.radius);
+  ms.pop();
+  gl.useProgram(planet.program);
+  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+  planet.render();
+  
+ 
+  name = "Moon";
+  planet = Planets[name];
+  data = SolarSystem[name];
+  
+  
+   planet.PointMode = false;
+
+  // Use the matrix stack to configure and render a planet.  How you rener
+  // each planet will be similar, but not exactly the same.  In particular,
+  // here, we're only rendering the Sun, which is the center of the Solar
+  // system (and hence, has no translation to its location).
+
+  ms.push();
+  ms.scale(data.radius);
+  ms.rotate();
+  ms.tanslate();
+  gl.useProgram(planet.program);
+  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+  planet.render();
+  ms.pop();
+  ms.pop();
+  
+  
+
+
 
   window.requestAnimationFrame(render);
 }
