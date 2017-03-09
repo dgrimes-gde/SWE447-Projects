@@ -181,7 +181,7 @@ function render() {
 
   ms.push();
   ms.rotate(data.year*time, [0,0,1]);
-  ms.tanslate(data.distance*1000,0,0);
+  ms.tanslate(data.distance*10,0,0);
   ms.push();
   ms.scale(data.radius);
   ms.pop();
@@ -206,8 +206,8 @@ function render() {
 
   ms.push();
   ms.scale(data.radius);
-  ms.rotate();
-  ms.tanslate();
+  ms.rotate(data.year*time, [0,0,1]);
+  ms.tanslate(data.distance*1000,0,0);
   gl.useProgram(planet.program);
   gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
   gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
@@ -216,6 +216,29 @@ function render() {
   ms.pop();
   ms.pop();
   
+  
+  name = "Mars";
+  planet = Planets[name];
+  data = SolarSystem[name];
+  
+  
+   planet.PointMode = false;
+
+  // Use the matrix stack to configure and render a planet.  How you rener
+  // each planet will be similar, but not exactly the same.  In particular,
+  // here, we're only rendering the Sun, which is the center of the Solar
+  // system (and hence, has no translation to its location).
+
+  ms.push();
+  ms.scale(data.radius);
+  ms.rotate(data.year*time, [0,0,1]);
+  ms.tanslate(data.distance*10,0,0);
+  gl.useProgram(planet.program);
+  gl.uniformMatrix4fv(planet.uniforms.MV, false, flatten(ms.current()));
+  gl.uniformMatrix4fv(planet.uniforms.P, false, flatten(P));
+  gl.uniform4fv(planet.uniforms.color, flatten(data.color));
+  planet.render();
+  ms.pop();
   
 
 
